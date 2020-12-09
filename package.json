@@ -1,0 +1,23 @@
+{
+  "name": "backend-proyecto-final",
+  "version": "1.0.0",
+  "description": "backend para el proyecto final cr-47",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lulugato12/backend-proyecto-final.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lulugato12/backend-proyecto-final/issues"
+  },
+  "homepage": "https://github.com/lulugato12/backend-proyecto-final#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.2"
+  }
+}
