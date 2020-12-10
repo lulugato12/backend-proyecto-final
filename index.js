@@ -90,13 +90,28 @@ const getCover = async () => {
   let link = await getImage(isbn);
   console.log(link);
 };
+const getCoverAlbum = (palabra) =>{
+  URL_LASTFM = `http://ws.audioscrobbler.com/2.0/?method=album.search&album=${palabra}&api_key=3ea9433a1af63611e25be95769a30969&format=json`;
+  return new Promise((resolve, reject) => {
+    request.get(URL_LASTFM, (err, res, body) => {
+      console.log('Buscando album...');
+      res.statusCode === 200
+      ? resolve(JSON.parse(body).results.albummatches.album[0].image[2]['#text'])
+      : eject({mensaje: 'Error buscando cover', body});
+    });
+  });
+}
 
 const getAlbum = async () => {
   let palabra = randomWords();
+  console.log(palabra);
+  let link = await getCoverAlbum(palabra);
+  console.log(link);
 };
 
 
 /* listener */
 app.listen(port, () => {
   console.log('starting server...')
+  getAlbum();
 })
