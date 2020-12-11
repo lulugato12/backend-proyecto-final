@@ -33,6 +33,10 @@ let collection = db.collection('posts')
 
 /* endpoint de post*/
 
+app.get('/', (req, res) => {
+  res.send('API BooksMusic 📄');
+})
+
 /* post */
 app.post('/api/v1/posts', async (req, res) => {
   const {usuario, descripcion} = req.body;
