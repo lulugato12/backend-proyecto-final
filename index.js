@@ -34,7 +34,7 @@ let collection = db.collection('posts')
 /* endpoint de post*/
 
 app.get('/', (req, res) => {
-  res.send('API BooksMusic 📄');
+  res.send('API BooksMusic 📄 | Gonzalo y Lulu');
 })
 
 /* post */
