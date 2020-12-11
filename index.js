@@ -62,14 +62,12 @@ app.delete('/api/v1/posts/:id', async (req, res) => {
 
 /* apis */
 
-/* get cover */
-
 const getISBN = (titulo) => {
   const URL_OPENLIBRARY = 'http://openlibrary.org/search.json?q=' + titulo;
   return new Promise((resolve, reject) => {
     request.get(URL_OPENLIBRARY, (err, res, body) => {
       console.log('Buscando ISBN...');
-      res.statusCode === 200
+      res.statusCode === 200 && JSON.parse(body).docs[0].isbn[1]
       ? resolve(JSON.parse(body).docs[0].isbn[1])
       : eject({mensaje: 'Error buscando ISBN', body});
     });
@@ -88,15 +86,14 @@ const getImage = (isbn) => {
   });
 }
 
+/* get portada */
 
-
-const getCover = async () => {
+app.get('/api/v1/portadas', async (req, res) => {
   let palabra = randomWords();
   let isbn = await getISBN(palabra);
-  console.log(isbn);
   let link = await getImage(isbn);
-  console.log(link);
-};
+  res.status(200).send({link});
+})
 
 const getCoverAlbum = (palabra) =>{
   URL_LASTFM = `http://ws.audioscrobbler.com/2.0/?method=album.search&album=${palabra}&api_key=3ea9433a1af63611e25be95769a30969&format=json`;
@@ -110,17 +107,16 @@ const getCoverAlbum = (palabra) =>{
   });
 }
 
-const getAlbum = async () => {
+/* get albumes */
+
+app.get('/api/v1/albumes', async (req, res) => {
   let palabra = randomWords();
-  console.log(palabra);
   let link = await getCoverAlbum(palabra);
-  console.log(link);
-};
+  res.status(200).send({link});
+})
 
 
 /* listener */
 app.listen(port, () => {
   console.log('starting server...')
-  /*getAlbum();
-  getCover();*/
 })
