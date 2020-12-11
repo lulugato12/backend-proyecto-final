@@ -25,7 +25,7 @@ let collection = db.collection('posts')
 /* endpoint de post*/
 
 /* post */
-app.post('/posts', async (req, res) => {
+app.post('/api/v1/posts', async (req, res) => {
   const {usuario, descripcion} = req.body;
   const post = {usuario, descripcion, time: new Intl.DateTimeFormat(['ban', 'id']).format(new Date())};
   await collection.doc().set(post)
@@ -34,7 +34,7 @@ app.post('/posts', async (req, res) => {
 })
 
 /* get */
-app.get('/posts', async (req, res) => {
+app.get('/api/v1/posts', async (req, res) => {
   const posts = [];
   try{
     const snapshot = await collection.get();
@@ -47,7 +47,7 @@ app.get('/posts', async (req, res) => {
 })
 
 /* delete */
-app.delete('/posts/:id', async (req, res) => {
+app.delete('/api/v1/posts/:id', async (req, res) => {
     await collection.doc(req.params.id).delete()
     .then(respuesta => res.status(204).send(respuesta))
     .catch(err => console.log(err))
@@ -90,6 +90,7 @@ const getCover = async () => {
   let link = await getImage(isbn);
   console.log(link);
 };
+
 const getCoverAlbum = (palabra) =>{
   URL_LASTFM = `http://ws.audioscrobbler.com/2.0/?method=album.search&album=${palabra}&api_key=3ea9433a1af63611e25be95769a30969&format=json`;
   return new Promise((resolve, reject) => {
@@ -113,5 +114,6 @@ const getAlbum = async () => {
 /* listener */
 app.listen(port, () => {
   console.log('starting server...')
-  getAlbum();
+  /*getAlbum();
+  getCover();*/
 })
