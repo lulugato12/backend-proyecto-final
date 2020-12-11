@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,7 +8,13 @@ const request = require('request');
 
 /* config firebase db */
 var admin = require("firebase-admin");
-var serviceAccount = require("./proyecto-final-5597c-firebase-adminsdk-6isyj-202cb58a3b.json");
+const serviceAccount = {
+  "project_id": process.env.FIREBASE_PROJECT_ID,
+  "private_key_id": process.env.FIREBASE_PRIVATE_KEY_ID,
+  "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+  "client_id": process.env.FIREBASE_CLIENT_ID,
+};
 
 /* credenciales */
 admin.initializeApp({
